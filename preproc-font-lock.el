@@ -5,7 +5,7 @@
 ;; Author: Anders Lindgren
 ;; Keywords: c, languages, faces
 ;; Created: 2003-??-??
-;; Version: 0.0.2
+;; Version: 0.0.3
 ;; URL: https://github.com/Lindydancer/preproc-font-lock
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -89,49 +89,6 @@
   :type '(repeat symbol))
 
 ;;}}}
-;;{{{ The modes
-
-;; Note: Broken out from `define-minor-mode preproc-font-lock' to reduce
-;; the amount of code placed in the package autoload file.
-;;;###autoload
-(defun preproc-font-lock-mode-enable-or-disable ()
-  "Enable or disable Preproc Font Lock Mode."
-  (if preproc-font-lock-mode
-      (preproc-font-lock-add-keywords)
-    (preproc-font-lock-remove-keywords))
-  ;; As of Emacs 24.4, `font-lock-fontify-buffer' is not legal to
-  ;; call, instead `font-lock-flush' should be used.
-  (if (fboundp 'font-lock-flush)
-      (font-lock-flush)
-    (when font-lock-mode
-      (with-no-warnings
-        (font-lock-fontify-buffer)))))
-
-
-;; Note: Without the "progn", plain autoloads for the functions,
-;; rather than the full call to the define functions, are placed in
-;; the generated autoload file, when installed as a package.
-
-;;;###autoload
-(progn
-  (define-minor-mode preproc-font-lock-mode
-    "Minor mode that highlights preprocessor directives."
-    :group 'preproc-font-lock
-    (preproc-font-lock-mode-enable-or-disable))
-
-
-  (define-global-minor-mode preproc-font-lock-global-mode
-    preproc-font-lock-mode
-    (lambda ()
-      (when (apply 'derived-mode-p preproc-font-lock-modes)
-        (preproc-font-lock-mode 1)))
-    :group 'preproc-font-lock
-    :init-value t)
-
-  (when preproc-font-lock-global-mode
-    (preproc-font-lock-global-mode 1)))
-
-;;}}}
 ;;{{{ Match functions
 
 ;; The idea here is to use the font-lock "achored" model. We match the
@@ -206,6 +163,50 @@
   (font-lock-remove-keywords mode preproc-font-lock-keywords))
 
 ;;}}}
+;;{{{ The modes
+
+;; Note: Broken out from `define-minor-mode preproc-font-lock' to reduce
+;; the amount of code placed in the package autoload file.
+;;;###autoload
+(defun preproc-font-lock-mode-enable-or-disable ()
+  "Enable or disable Preproc Font Lock Mode."
+  (if preproc-font-lock-mode
+      (preproc-font-lock-add-keywords)
+    (preproc-font-lock-remove-keywords))
+  ;; As of Emacs 24.4, `font-lock-fontify-buffer' is not legal to
+  ;; call, instead `font-lock-flush' should be used.
+  (if (fboundp 'font-lock-flush)
+      (font-lock-flush)
+    (when font-lock-mode
+      (with-no-warnings
+        (font-lock-fontify-buffer)))))
+
+
+;; Note: Without the "progn", plain autoloads for the functions,
+;; rather than the full call to the define functions, are placed in
+;; the generated autoload file, when installed as a package.
+
+;;;###autoload
+(progn
+  (define-minor-mode preproc-font-lock-mode
+    "Minor mode that highlights preprocessor directives."
+    :group 'preproc-font-lock
+    (preproc-font-lock-mode-enable-or-disable))
+
+
+  (define-global-minor-mode preproc-font-lock-global-mode
+    preproc-font-lock-mode
+    (lambda ()
+      (when (apply 'derived-mode-p preproc-font-lock-modes)
+        (preproc-font-lock-mode 1)))
+    :group 'preproc-font-lock
+    :init-value t)
+
+  (when preproc-font-lock-global-mode
+    (preproc-font-lock-global-mode 1)))
+
+;;}}}
+
 ;;{{{ Profile support
 
 ;; The following (non-evaluated) section can be used to

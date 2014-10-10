@@ -49,4 +49,6 @@ FILE is interpreted as relative to this source directory."
 (ert-deftest preproc-font-lock-file-test ()
   (should (preproc-font-lock-test-file "files/demo.c")))
 
+(provide 'preproc-font-lock-test-files)
+
 ;; preproc-font-lock-test-files.el ends here.

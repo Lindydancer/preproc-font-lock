@@ -1,7 +1,7 @@
 # preproc-font-lock - Highlight C-style preprocessor directives
 
 *Author:* Anders Lindgren<br>
-*Version:* 0.0.2<br>
+*Version:* 0.0.3<br>
 *URL:* [https://github.com/Lindydancer/preproc-font-lock](https://github.com/Lindydancer/preproc-font-lock)<br>
 
 

@@ -18,14 +18,20 @@
 
 ;;; Code:
 
-(add-to-list 'load-path (expand-file-name "../../faceup"))
-
-(load-file "../preproc-font-lock.el")
-(preproc-font-lock-global-mode 1)
-
-(load-file "preproc-font-lock-test-files.el")
-
 (setq inhibit-startup-screen t)
+(prefer-coding-system 'utf-8)
+
+(defvar preproc-font-lock-test-setup-directory
+  (if load-file-name
+      (file-name-directory load-file-name)
+    default-directory))
+
+(dolist (dir '("." ".." "../../faceup"))
+  (add-to-list 'load-path (concat preproc-font-lock-test-setup-directory dir)))
+
+(require 'preproc-font-lock)
+(require 'preproc-font-lock-test-files)
+
 (ert t)
 
 ;;; preproc-font-lock-test-setup.el ends here
