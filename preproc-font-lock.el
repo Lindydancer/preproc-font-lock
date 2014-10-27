@@ -5,7 +5,7 @@
 ;; Author: Anders Lindgren
 ;; Keywords: c, languages, faces
 ;; Created: 2003-??-??
-;; Version: 0.0.3
+;; Version: 0.0.4
 ;; URL: https://github.com/Lindydancer/preproc-font-lock
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -36,15 +36,19 @@
 
 ;; Installation:
 ;;
-;; This package is designed to be installed as a "package". Once
-;; installed, it is automatically activated.
+;; Place this package in a directory in the load-path. To activate it,
+;; use *customize* or place the following lines in a suitable init
+;; file:
+;;
+;;    (require 'preproc-font-lock-mode)
+;;    (preproc-font-lock-global-mode 1)
 
 ;; Customization:
 ;;
 ;; You can customize this package using the following:
 ;;
-;; * `preproc-font-lock-face' -- The *face* used to highlight the
-;;   preprocessor directive
+;; * `preproc-font-lock-preprocessor-background' -- The *face* used to
+;;   highlight the preprocessor directive
 ;;
 ;; * `preproc-font-lock-modes' -- A list of major modes. A buffer is
 ;;   highlighted if it's major mode is, or is derived from, a member
@@ -61,25 +65,22 @@
 
 ;;; Code:
 
-;;{{{ Dependencies
-
-(eval-when-compile
-  (require 'cl))
-
-;;}}}
 ;;{{{ Variables
 
 (defgroup preproc-font-lock nil
-  "Highlight preprocessor directives for C-like languages."
+  "Highlight preprocessor directives of C-like languages."
   :group 'faces)
 
 
-;; Note: The Emacs style guide specifies that `-face' should not be
-;; included in the face name. However, in Customize, there is no
-;; indication that this is a face, so that would confuse the user.
-(defface preproc-font-lock-face
-  '((((class color) (background light)) (:background "Grey85")))
-  "Face for preproc-font-lock."
+(defface preproc-font-lock-preprocessor-background
+  '((t :inherit highlight))
+  "Default face for highlighting preprocessor statements."
+  :group 'preproc-font-lock)
+
+(defcustom preproc-font-lock-preprocessor-background-face
+  'preproc-font-lock-preprocessor-background
+  "Face for highlighting preprocessor statements."
+  :type 'face
   :group 'preproc-font-lock)
 
 ;;;###autoload
@@ -87,6 +88,33 @@
   "List of major modes where Preproc Font Lock Global mode should be enabled."
   :group 'preproc-font-lock
   :type '(repeat symbol))
+
+;;}}}
+;;{{{ The modes
+
+;;;###autoload
+(define-minor-mode preproc-font-lock-mode
+  "Minor mode that highlights preprocessor directives."
+  :group 'preproc-font-lock
+  (if preproc-font-lock-mode
+      (preproc-font-lock-add-keywords)
+    (preproc-font-lock-remove-keywords))
+  ;; As of Emacs 24.4, `font-lock-fontify-buffer' is not legal to
+  ;; call, instead `font-lock-flush' should be used.
+  (if (fboundp 'font-lock-flush)
+      (font-lock-flush)
+    (when font-lock-mode
+      (with-no-warnings
+        (font-lock-fontify-buffer)))))
+
+
+;;;###autoload
+(define-global-minor-mode preproc-font-lock-global-mode preproc-font-lock-mode
+  (lambda ()
+    (when (apply 'derived-mode-p preproc-font-lock-modes)
+      (preproc-font-lock-mode 1)))
+  :group 'preproc-font-lock)
+
 
 ;;}}}
 ;;{{{ Match functions
@@ -151,7 +179,7 @@
      (preproc-font-lock-match-statement-line
       (preproc-font-lock-match-pre)
       nil
-      (0 'preproc-font-lock-face append t))))
+      (0 preproc-font-lock-preprocessor-background-face append t))))
   "Highlighting rules used by Preproc Font Lock.")
 
 (defun preproc-font-lock-add-keywords (&optional mode)
@@ -163,50 +191,6 @@
   (font-lock-remove-keywords mode preproc-font-lock-keywords))
 
 ;;}}}
-;;{{{ The modes
-
-;; Note: Broken out from `define-minor-mode preproc-font-lock' to reduce
-;; the amount of code placed in the package autoload file.
-;;;###autoload
-(defun preproc-font-lock-mode-enable-or-disable ()
-  "Enable or disable Preproc Font Lock Mode."
-  (if preproc-font-lock-mode
-      (preproc-font-lock-add-keywords)
-    (preproc-font-lock-remove-keywords))
-  ;; As of Emacs 24.4, `font-lock-fontify-buffer' is not legal to
-  ;; call, instead `font-lock-flush' should be used.
-  (if (fboundp 'font-lock-flush)
-      (font-lock-flush)
-    (when font-lock-mode
-      (with-no-warnings
-        (font-lock-fontify-buffer)))))
-
-
-;; Note: Without the "progn", plain autoloads for the functions,
-;; rather than the full call to the define functions, are placed in
-;; the generated autoload file, when installed as a package.
-
-;;;###autoload
-(progn
-  (define-minor-mode preproc-font-lock-mode
-    "Minor mode that highlights preprocessor directives."
-    :group 'preproc-font-lock
-    (preproc-font-lock-mode-enable-or-disable))
-
-
-  (define-global-minor-mode preproc-font-lock-global-mode
-    preproc-font-lock-mode
-    (lambda ()
-      (when (apply 'derived-mode-p preproc-font-lock-modes)
-        (preproc-font-lock-mode 1)))
-    :group 'preproc-font-lock
-    :init-value t)
-
-  (when preproc-font-lock-global-mode
-    (preproc-font-lock-global-mode 1)))
-
-;;}}}
-
 ;;{{{ Profile support
 
 ;; The following (non-evaluated) section can be used to

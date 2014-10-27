@@ -1,7 +1,7 @@
 # preproc-font-lock - Highlight C-style preprocessor directives
 
 *Author:* Anders Lindgren<br>
-*Version:* 0.0.3<br>
+*Version:* 0.0.4<br>
 *URL:* [https://github.com/Lindydancer/preproc-font-lock](https://github.com/Lindydancer/preproc-font-lock)<br>
 
 
@@ -16,15 +16,19 @@ buffers.
 
 ## Installation
 
-This package is designed to be installed as a "package". Once
-installed, it is automatically activated.
+Place this package in a directory in the load-path. To activate it,
+use *customize* or place the following lines in a suitable init
+file:
+
+       (require 'preproc-font-lock-mode)
+       (preproc-font-lock-global-mode 1)
 
 ## Customization
 
 You can customize this package using the following:
 
-* `preproc-font-lock-face` -- The *face* used to highlight the
-  preprocessor directive
+* `preproc-font-lock-preprocessor-background` -- The *face* used to
+  highlight the preprocessor directive
 * `preproc-font-lock-modes` -- A list of major modes. A buffer is
   highlighted if it's major mode is, or is derived from, a member
   of this list.

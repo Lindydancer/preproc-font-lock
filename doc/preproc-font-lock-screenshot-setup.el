@@ -16,6 +16,7 @@
       default-directory))
 
 (load (concat preproc-font-lock-screenshot-dir "../preproc-font-lock.el"))
+(preproc-font-lock-global-mode 1)
 (find-file (concat preproc-font-lock-screenshot-dir "demo.c"))
 
 (set-frame-size (selected-frame) 80 24)

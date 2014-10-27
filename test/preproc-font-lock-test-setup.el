@@ -32,6 +32,8 @@
 (require 'preproc-font-lock)
 (require 'preproc-font-lock-test-files)
 
+(preproc-font-lock-global-mode 1)
+
 (ert t)
 
 ;;; preproc-font-lock-test-setup.el ends here

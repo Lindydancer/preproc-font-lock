@@ -3,19 +3,19 @@
  »«m:*/»
 
 «m:/* »«x:Include directive »«m:*/»
-«:preproc-font-lock-face:«p:#incude» <stdio.h>»
+«:preproc-font-lock-preprocessor-background:«p:#include» «s:<stdio.h>»»
 
 «m:/* »«x:Normal macro »«m:*/»
-«:preproc-font-lock-face:«p:#define» «v:HORSE» 1»
+«:preproc-font-lock-preprocessor-background:«p:#define» «v:HORSE» 1»
 
 «m:/* »«x:Multiline macro »«m:*/»
-«:preproc-font-lock-face:«p:#define» «f:MAX»(«v:x», «v:y»)                              \»
-«:preproc-font-lock-face:  (  (x) > (y)                                 \»
-«:preproc-font-lock-face:   ? (x)                                       \»
-«:preproc-font-lock-face:   : (y))»
+«:preproc-font-lock-preprocessor-background:«p:#define» «f:MAX»(«v:x», «v:y»)                              \»
+«:preproc-font-lock-preprocessor-background:  (  (x) > (y)                                 \»
+«:preproc-font-lock-preprocessor-background:   ? (x)                                       \»
+«:preproc-font-lock-preprocessor-background:   : (y))»
 
 «m:/* »«x:Broken multiline macro (end-of-line backslash missing) »«m:*/»
-«:preproc-font-lock-face:«p:#define» «f:MIN»(«v:x», «v:y»)                              \»
-«:preproc-font-lock-face:  (  (x) < (y)»
+«:preproc-font-lock-preprocessor-background:«p:#define» «f:MIN»(«v:x», «v:y»)                              \»
+«:preproc-font-lock-preprocessor-background:  (  (x) < (y)»
    ? (x)                                       \
    : (y))

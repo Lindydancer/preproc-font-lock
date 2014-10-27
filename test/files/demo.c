@@ -3,7 +3,7 @@
  */
 
 /* Include directive */
-#incude <stdio.h>
+#include <stdio.h>
 
 /* Normal macro */
 #define HORSE 1
