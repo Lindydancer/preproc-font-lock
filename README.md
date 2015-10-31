@@ -20,7 +20,7 @@ Place this package in a directory in the load-path. To activate it,
 use *customize* or place the following lines in a suitable init
 file:
 
-       (require 'preproc-font-lock-mode)
+       (require 'preproc-font-lock)
        (preproc-font-lock-global-mode 1)
 
 ## Customization
