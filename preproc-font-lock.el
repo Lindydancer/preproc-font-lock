@@ -5,7 +5,7 @@
 ;; Author: Anders Lindgren
 ;; Keywords: c, languages, faces
 ;; Created: 2003-??-??
-;; Version: 0.0.4
+;; Version: 0.0.5
 ;; URL: https://github.com/Lindydancer/preproc-font-lock
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -40,7 +40,7 @@
 ;; use *customize* or place the following lines in a suitable init
 ;; file:
 ;;
-;;    (require 'preproc-font-lock-mode)
+;;    (require 'preproc-font-lock)
 ;;    (preproc-font-lock-global-mode 1)
 
 ;; Customization:
