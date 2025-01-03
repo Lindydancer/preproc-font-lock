@@ -1,4 +1,4 @@
-;; preproc-font-lock-screenshot-setup.el --- prepare Emacs for screenshot.
+;; preproc-font-lock-screenshot-setup.el --- prepare for screenshot.  -*- lexical-binding: t; -*-
 
 ;; Usage:
 ;;

@@ -1,11 +1,11 @@
-;;; preproc-font-lock.el --- Highlight C-style preprocessor directives.
+;;; preproc-font-lock.el --- Highlight C preprocessor directives.  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2003,2007,2014 Anders Lindgren
 
 ;; Author: Anders Lindgren
 ;; Keywords: c, languages, faces
 ;; Created: 2003-??-??
-;; Version: 0.0.5
+;; Version: 0.0.6
 ;; URL: https://github.com/Lindydancer/preproc-font-lock
 
 ;; This program is free software: you can redistribute it and/or modify

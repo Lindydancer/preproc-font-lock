@@ -1,4 +1,4 @@
-;;; preproc-font-lock-test-files.el --- Regression test for preproc-font-lock.
+;;; preproc-font-lock-test-files.el --- Test for `preproc-font-lock'.  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2014 Anders Lindgren
 

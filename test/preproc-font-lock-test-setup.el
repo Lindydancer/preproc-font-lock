@@ -1,4 +1,4 @@
-;;; preproc-font-lock-test-setup.el --- Setup and execute all tests.
+;;; preproc-font-lock-test-setup.el --- Setup and execute all tests.  -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
